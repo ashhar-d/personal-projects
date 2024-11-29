@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ToDo List</title>
+    <style>
+        /* Add your CSS here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        h1 {
+            background-color: #228B22;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        
+        form {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        
+        input[type="submit"] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            background-color: #808080;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 50%;
+            margin: 20px auto;
+        }
+        
+        li {
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        a {
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        
+        a[href*="edit"] {
+            background-color: #228B22;
+        }
+        
+        a[href*="delete"] {
+            background-color: #B22222;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>ToDo List</h1>
+    <form method="POST" action="/add">
+        <input type="text" name="todo" placeholder="Add Items">
+        <input type="submit" value="Submit">
+    </form>
+    <h2>Tasks</h2>
+    <ul>
+        {% for todo in todos %}
+        <li>
+            {{ todo }}
+            <form method="POST" action="/edit/{{ loop.index0 }}">
+                <input type="text" name="todo">
+                <input type="submit" value="Edit">
+            </form>
+            <a href="/delete/{{ loop.index0 }}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
